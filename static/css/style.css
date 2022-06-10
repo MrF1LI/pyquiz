@@ -1,0 +1,75 @@
+.final-title {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.my-header {
+    background: #fff !important;
+    border-bottom: 1px solid #dee2e6 !important;
+    padding-top: 0.8rem !important;
+    padding-bottom: 0.8rem !important;
+}
+
+.my-color {
+    color: #212529 !important;
+}
+
+.my-color:hover {
+    color: rgba(0, 0, 0, 0.95) !important;
+}
+
+.container-padding {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.search-form {
+    margin-bottom: 20px;
+}
+
+.search-bar {
+    margin-right: 20px;
+}
+
+.my-pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.margin-right {
+    margin-right: 10px;
+}
+
+.footer-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.auth-form {
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: black;
+}
+
+.max-width {
+    max-width: 500px;
+}
+
+.bookmark-icon {
+    display: none;
+    cursor: pointer;
+}
+
+.btn-save {
+    background: none;
+    border: none;
+}
+
+.btn-delete {
+    border: none;
+    background: none;
+}
+
+.btn-save:disabled {
+    color: black;
+}

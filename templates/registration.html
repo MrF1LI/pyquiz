@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ super() }} | Registration {% endblock %}
+
+{% block content %}
+    <section class="section pb-0 mb-5">
+
+        <div class="container">
+
+            <div class="row align-items-center justify-content-center">
+                <div class="col-md-8 col-lg-7">
+
+                    <form method="post" class="auth-form bg-light pt-4 pb-4 pl-5 pr-5 m-5">
+                        <h3 class="section-title mb-4 final-title ti-fullscreen">რეგისტრაცია</h3>
+                        <div class="form-row">
+                            <div class="col form-group">
+                                <input name="firstname" type="text" class="form-control" placeholder="სახელი">
+                            </div>
+                            <div class="col form-group">
+                                <input name="lastname" type="text" class="form-control" placeholder="გვარი">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input name="date" type="date" class="form-control" id="exampleFormControlInput1" placeholder="დაბადების თარიღი">
+                        </div>
+                        <div class="form-group">
+                            <input name="email" type="email" class="form-control" placeholder="ელ. ფოსტა">
+                        </div>
+                        <div class="form-group">
+                            <input name="password" type="password" class="form-control" placeholder="პაროლი">
+                        </div>
+                        <div class="form-group">
+                            <input name="confirm-password" type="password" class="form-control" placeholder="გაიმეორეთ პაროლი">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary btn-block" value="რეგისტრაცია">
+                        </div>
+                        <span>
+                            უკვე გაქვთ ანგარიში?
+                            <a href="/authorization" class="text-primary">ავტორიზაცია</a>
+                        </span>
+                    </form>
+                    {% with messages =get_flashed_messages() %}
+                        {% for message in messages %}
+                            <div class="alert alert-primary ml-5 mr-5 max-width alert-dismissible fade show"
+                                 role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endwith %}
+                </div>
+            </div>
+
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ super() }} | Schedule {% endblock %}
+
+{% block content %}
+    <section class="section" id="pb-0">
+        <div class="container">
+
+            <h3 class="section-title final-title">ფინალური გამოცდის განრიგი</h3>
+
+            <form class="search-form" method="get">
+
+                <div class="select-group d-flex">
+                    <div class="form-group margin-right">
+                        <select class="form-control" id="exampleFormControlSelect1" name="step">
+                            <option {% if searched_data and searched_data['step'] == "საფეხური" %}selected{% endif %}>საფეხური</option>
+                            <option {% if searched_data and searched_data['step'] == "ბაკალავრიატი" %}selected{% endif %}>ბაკალავრიატი</option>
+                            <option {% if searched_data and searched_data['step'] == "მაგისტრატურა" %}selected{% endif %}>მაგისტრატურა</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group margin-right">
+                        <select class="form-control" id="exampleFormControlSelect2" name="format">
+                            <option {% if searched_data %}
+                                {% if searched_data['format'] =="გამოცდის ფორმატი" %}selected{% endif %}  {% endif %} >
+                                გამოცდის ფორმატი
+                            </option>
+                            <option {% if searched_data %}
+                                {% if searched_data['format'] =="პრეზენტაცია" %}selected{% endif %}  {% endif %} >
+                                პრეზენტაცია
+                            </option>
+                            <option {% if searched_data %}
+                                {% if searched_data['format'] =="წერითი" %}selected{% endif %}  {% endif %} >
+                                წერითი
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group margin-right">
+                        <select class="form-control" id="exampleFormControlSelect3" name="group">
+                            <option>ჯგუფი</option>
+
+                            {% for num in range(1,21) %}
+                                <option>{{ num }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <input class="form-control me-2 search-bar" type="search" name="search" placeholder="Search"
+                           aria-label="Search"
+                           value="{% if searched_data %}{{ searched_data['search_keyword'] }}{% endif %}">
+                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                </div>
+            </form>
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">საფეხური</th>
+                    <th scope="col">სასწავლო კურსი</th>
+                    <th scope="col">გამოცდის ფორმატი</th>
+                    <th scope="col">ჯგუფის დასახელება</th>
+                    <th scope="col">ლექტორი</th>
+                    <th scope="col">საგამოცდო დრო</th>
+                    <th scope="col">საგამოცდო დღე</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for each in data %}
+                    <tr class="schedule_item">
+                        <th scope="row">
+                            <form method="POST" class="d-flex flex-column justify-content-center align-items-center">
+                                <span class="index mb-2">{{ loop.index }}</span>
+                                <input name="item_id" type="number" class="d-none" value="{{ each.id }}">
+                                {% if user_schedule and each.id in user_schedule %}
+                                    <button type="submit" class="disabled btn-save" disabled>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor" class="bi bi-bookmark-check-fill" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                  d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm8.854-9.646a.5.5 0 0 0-.708-.708L7.5 7.793 6.354 6.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"></path>
+                                        </svg>
+                                    </button>
+                                {% else %}
+                                    <button type="submit" class="btn-save">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-bookmark d-block" viewBox="0 0 16 16">
+                                            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"></path>
+                                        </svg>
+                                    </button>
+                                {% endif %}
+                            </form>
+                        </th>
+                        <td>{{ each.step }}</td>
+                        <td>{{ each.course }}</td>
+                        <td>{{ each.format }}</td>
+                        <td>{{ each.group }}</td>
+                        <td>{{ each.lecturer }}</td>
+                        <td>{{ each.time }}</td>
+                        <td>{{ each.date }}</td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+
+            <div class="alert alert-primary alert-dismissible fade {% if data.count() < 1 %} show {% endif %}"
+                 role="alert">
+                ინფორმაცია ვერ მოიძებნა.
+            </div>
+
+        </div>
+    </section>
+{% endblock %}
